@@ -30,7 +30,7 @@ app.get('/author/:id', (req, res) => {
 
 app.post('/authors', (req, res) => {
   const {ids} = req.body;
-  console.log(ids);
+  console.log("ids, fetched ", ids);
   const filtered = authors.filter((author) => (ids.includes(author.id)));
   if(filtered) {
     res.json(filtered);
