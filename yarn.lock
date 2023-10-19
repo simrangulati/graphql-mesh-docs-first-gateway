@@ -847,6 +847,17 @@
     graphql-compose "9.0.10"
     json-machete "0.95.2"
 
+"@graphql-mesh/json-schema@^0.95.10":
+  version "0.95.10"
+  resolved "https://registry.yarnpkg.com/@graphql-mesh/json-schema/-/json-schema-0.95.10.tgz#b182331a9a0206433c9984e0c58ce6059f2fc54a"
+  integrity sha512-n+gMkiN62g9VG/2KxGB2wXNATB58UvsrmfFVMu+G/Z3dFA2LaPRoKN3WM56XlN6Rv9Y2lNkewbioBydUJG9+kA==
+  dependencies:
+    "@graphql-mesh/string-interpolation" "0.5.2"
+    "@json-schema-tools/meta-schema" "1.7.0"
+    "@omnigraph/json-schema" "0.95.10"
+    graphql-compose "9.0.10"
+    json-machete "0.95.7"
+
 "@graphql-mesh/merger-bare@^0.95.2":
   version "0.95.2"
   resolved "https://registry.yarnpkg.com/@graphql-mesh/merger-bare/-/merger-bare-0.95.2.tgz#af6e9189d2893788690bccb27a71b1cc950c7b2b"
@@ -898,6 +909,15 @@
   integrity sha512-xrShpJ4silpWekpeVntDNt6NY6RxEMMbZ1CenIkLsl/QN3mMjxWa3rQX0qrByBeyDn7SorSN3lrClCCsPvmWZw==
   dependencies:
     dayjs "1.11.9"
+    json-pointer "0.6.2"
+    lodash.get "4.4.2"
+
+"@graphql-mesh/string-interpolation@0.5.2":
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/@graphql-mesh/string-interpolation/-/string-interpolation-0.5.2.tgz#af89cd63b27e7c2c85e994872be2ed18eaad07e1"
+  integrity sha512-TkSAJ9pj1zesQyDlHrEUevVGOc1s/z9IQC0AONcpMHAunb8uYGO4Yryl8JIRIvDl5DlexHt3z8kLDNCInRGWNQ==
+  dependencies:
+    dayjs "1.11.10"
     json-pointer "0.6.2"
     lodash.get "4.4.2"
 
@@ -1384,6 +1404,25 @@
   dependencies:
     mkdirp "^1.0.4"
     rimraf "^3.0.2"
+
+"@omnigraph/json-schema@0.95.10":
+  version "0.95.10"
+  resolved "https://registry.yarnpkg.com/@omnigraph/json-schema/-/json-schema-0.95.10.tgz#7aacef5ce7d52e274a4b6c2c43e90cf90920d4b7"
+  integrity sha512-WE5VljFakF81Mcu6nVYXJknWGmyO53CNyV5rgGKZ9F3K0rQPKI4i7gG+QGwFTdjngnD6Wxy3cXN+Hu3NY2a0kw==
+  dependencies:
+    "@graphql-mesh/string-interpolation" "0.5.2"
+    "@json-schema-tools/meta-schema" "1.7.0"
+    "@whatwg-node/fetch" "^0.9.0"
+    ajv "8.12.0"
+    ajv-formats "2.1.1"
+    dset "3.1.2"
+    graphql-compose "9.0.10"
+    graphql-scalars "^1.22.4"
+    json-machete "0.95.7"
+    pascal-case "3.1.2"
+    qs "6.11.2"
+    to-json-schema "0.2.5"
+    url-join "4.0.1"
 
 "@omnigraph/json-schema@0.95.3", "@omnigraph/json-schema@^0.95.3":
   version "0.95.3"
@@ -2312,6 +2351,11 @@ date-fns@^2.30.0:
   dependencies:
     "@babel/runtime" "^7.21.0"
 
+dayjs@1.11.10:
+  version "1.11.10"
+  resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.11.10.tgz#68acea85317a6e164457d6d6947564029a6a16a0"
+  integrity sha512-vjAczensTgRcqDERK0SR2XMwsF/tSvnvlv6VcF2GIhg6Sx4yOIt/irsr1RDJsKiIyBzJDpCoXiWWq28MqH2cnQ==
+
 dayjs@1.11.9:
   version "1.11.9"
   resolved "https://registry.yarnpkg.com/dayjs/-/dayjs-1.11.9.tgz#9ca491933fadd0a60a2c19f6c237c03517d71d1a"
@@ -2817,6 +2861,13 @@ graphql-scalars@^1.22.2:
   dependencies:
     tslib "^2.5.0"
 
+graphql-scalars@^1.22.4:
+  version "1.22.4"
+  resolved "https://registry.yarnpkg.com/graphql-scalars/-/graphql-scalars-1.22.4.tgz#af092b142bcfd5c1f8c53cb70ee1955ecd4ddb03"
+  integrity sha512-ILnv7jq5VKHLUyoaTFX7lgYrjCd6vTee9i8/B+D4zJKJT5TguOl0KkpPEbXHjmeor8AZYrVsrYUHdqRBMX1pjA==
+  dependencies:
+    tslib "^2.5.0"
+
 graphql-tag@^2.11.0, graphql-tag@^2.12.6:
   version "2.12.6"
   resolved "https://registry.yarnpkg.com/graphql-tag/-/graphql-tag-2.12.6.tgz#d441a569c1d2537ef10ca3d1633b48725329b5f1"
@@ -3188,6 +3239,17 @@ json-machete@0.95.2, json-machete@^0.95.2:
   version "0.95.2"
   resolved "https://registry.yarnpkg.com/json-machete/-/json-machete-0.95.2.tgz#47632a83100221d149ff798cc84e673b1b82feb6"
   integrity sha512-02P1cRMqYTZhBQZvt7whWd0YfjARWNIeUAO6TYshKsNbF1zzN5BxC6sMEF6VHAh4m2nRzCTuQ1YiLrPtsZoTNQ==
+  dependencies:
+    "@json-schema-tools/meta-schema" "1.7.0"
+    "@whatwg-node/fetch" "^0.9.0"
+    json-pointer "0.6.2"
+    to-json-schema "0.2.5"
+    url-join "4.0.1"
+
+json-machete@0.95.7:
+  version "0.95.7"
+  resolved "https://registry.yarnpkg.com/json-machete/-/json-machete-0.95.7.tgz#360cc067142f65184433d903e3b4d89bfb8eeb5b"
+  integrity sha512-OhBetx32HSX3yhxuT2V2N0pG82EKMUmQfxG+3C3/DjOqJdoOGRZcSmqkqKR2alMh3jb2TGnTqG+MXxrzq998jA==
   dependencies:
     "@json-schema-tools/meta-schema" "1.7.0"
     "@whatwg-node/fetch" "^0.9.0"
