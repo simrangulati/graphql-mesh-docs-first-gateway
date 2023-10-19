@@ -6,21 +6,19 @@ sources:
   - name: Authors
     handler:
       jsonSchema:
-        endpoint: http://localhost:3003
-        operationHeaders:
-          content-type: application/json
+        endpoint: localhost:3003
         operations:
-         - type: Mutation
-           field: authors
-           path: /authors
-           method: POST
-           requestSample: ./request.json
-           responseSample: ./users.json
          - type: Query
            field: author
+           path: /authors
+           method: POST
+           responseSample: ./users.json
+         - type: Mutation
+           field: authors
            path: /author/{args.id}
            method: GET
            responseSample: ./user.json
+
   - name: Stores
     handler:
       graphql:
@@ -54,13 +52,14 @@ additionalTypeDefs: |
     )
   }
   extend type Book {
-    author: query_author @resolveTo(
+    author: authors_v1_Author @resolveTo(
       sourceName: "Authors"                                  
-      sourceTypeName: "Mutation",       
-      sourceFieldName: "authors",
+      sourceTypeName: "Query",       
+      sourceFieldName: "authors_v1_AuthorsService_GetAuthor",
       requiredSelectionSet: "{ authorId }",
-      keysArg: "input.ids"
-      keyField: "authorId"
+      sourceArgs: { 
+        input: { id: "{root.authorId}" }
+      }
     )
   }
 # additionalResolvers:
@@ -91,13 +90,12 @@ additionalTypeDefs: |
 #   - targetTypeName: Book
 #     targetFieldName: author
 #     sourceName: Authors # Which source does the target field belong to?
-#     sourceTypeName: Mutation # Which root type does the target field belong to?
-#     sourceFieldName: authors # What is the source field name?
+#     sourceTypeName: Query # Which root type does the target field belong to?
+#     sourceFieldName: authors_v1_AuthorsService_GetAuthor # What is the source field name?
 #     requiredSelectionSet:
 #       |
 #       {
 #         authorId
 #       }
-#     keysArg: "input.ids"
-#     keyField: "authorId"
-
+#     sourceArgs: # What args does this need to take?
+#       input.id: "{root.authorId}"

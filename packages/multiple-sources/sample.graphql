@@ -1,0 +1,27 @@
+mutation {
+  authors (input: {ids: ["1", "0"]}) {
+    id
+    name
+  }
+}
+
+query {
+  stores {
+    name
+    id
+    location
+    bookSells {
+      bookId
+      storeId
+      book {
+        author {
+          name
+          id
+          editor
+        }
+        authorId
+        title
+      }
+    }
+  }
+}

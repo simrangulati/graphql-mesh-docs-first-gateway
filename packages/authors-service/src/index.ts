@@ -1,8 +1,9 @@
-import { join } from 'path';
-import { loadPackageDefinition, Server, ServerCredentials } from '@grpc/grpc-js';
-import { load } from '@grpc/proto-loader';
+import express from 'express';
+import bodyParser from 'body-parser';
 
-const wrapServerWithReflection = require('grpc-node-server-reflection').default;
+const app = express();
+app.use(bodyParser.json());
+const port = 3003
 
 const authors = [
   {
@@ -18,41 +19,25 @@ const authors = [
 ];
 
 
-async function startServer() {
-  const server: Server = wrapServerWithReflection(new Server());
+app.get('/author/:id', (req, res) => {
+  const author = authors.find(a => a.id === req.params.id);
+  if(author) {
+    res.json(author);
+  } else {
+    res.status(404).json({"message": "not found"});
+  }
+})
 
-  const packageDefinition = await load('./service.proto', {
-    includeDirs: [__dirname],
-  });
-  const grpcObject = loadPackageDefinition(packageDefinition);
-  server.addService(grpcObject.authors.v1.AuthorsService.service, {
-    getAuthor: (call, callback) => {
-      const author = authors.find(a => a.id === call.request.id);
-      if (author) {
-        callback(null, author);
-      } else {
-        callback({ code: 5 });
-      }
-    },
-    listAuthors: (_, callback) => {
-      callback(null, { items: authors });
-    },
-  });
-  return new Promise<Server>((resolve, reject) => {
-    server.bindAsync('0.0.0.0:3003', ServerCredentials.createInsecure(), (error, port) => {
-      if (error) {
-        reject(error);
-        return;
-      }
-      server.start();
-
-      console.log('Authors Server started, listening: 0.0.0.0:' + port);
-      resolve(server);
-    });
-  });
-}
-
-startServer().catch(e => {
-  console.error(e);
-  process.exit(1);
-});
+app.post('/authors', (req, res) => {
+  const {ids} = req.body;
+  console.log("ids, fetched ", ids);
+  const filtered = authors.filter((author) => (ids.includes(author.id)));
+  if(filtered) {
+    res.json(filtered);
+  } else {
+    res.status(404).json({"message": "not found"});
+  }
+})
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
+})
