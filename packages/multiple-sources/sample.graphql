@@ -1,0 +1,6 @@
+mutation {
+  authors (input: {ids: ["1", "0"]}) {
+    id
+    name
+  }
+}
