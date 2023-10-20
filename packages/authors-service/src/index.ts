@@ -27,6 +27,7 @@ async function startServer() {
   const grpcObject = loadPackageDefinition(packageDefinition);
   server.addService(grpcObject.authors.v1.AuthorsService.service, {
     getAuthor: (call, callback) => {
+      console.log("getAuthor called")
       const author = authors.find(a => a.id === call.request.id);
       if (author) {
         callback(null, author);
@@ -35,6 +36,7 @@ async function startServer() {
       }
     },
     listAuthors: (_, callback) => {
+      console.log("listAuthors called")
       callback(null, { items: authors });
     },
   });

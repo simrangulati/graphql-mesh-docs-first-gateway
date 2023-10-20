@@ -8,7 +8,8 @@ service AuthorsService {
   rpc ListAuthors(ListAuthorsRequest) returns (ListAuthorsResponse) {}
 }
 
-message ListAuthorsRequest {}
+message ListAuthorsRequest {
+}
 
 
 message GetAuthorRequest {

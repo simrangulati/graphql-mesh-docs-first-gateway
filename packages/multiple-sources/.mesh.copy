@@ -41,10 +41,13 @@ additionalTypeDefs: |
   }
   extend type Book {
     author: authors_v1_Author @resolveTo(
-      sourceName: "Authors",
-      sourceTypeName: "Query",
-      sourceFieldName: "authors_v1_AuthorsService_ListAuthors",
-      keyField: "authorId"
+      sourceName: "Authors"                                  
+      sourceTypeName: "Query",       
+      sourceFieldName: "authors_v1_AuthorsService_GetAuthor",
+      requiredSelectionSet: "{ authorId }",
+      sourceArgs: { 
+        input: { id: "{root.authorId}" }
+      }
     )
   }
 # additionalResolvers:

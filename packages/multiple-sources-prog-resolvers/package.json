@@ -5,7 +5,7 @@
   "author": "Charly POLY",
   "license": "MIT",
   "scripts": {
-    "start": "mesh dev",
+    "start": "mesh dev --port 6002",
     "build": "echo \"noop\";"
   },
   "dependencies": {
