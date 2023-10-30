@@ -1,8 +1,11 @@
+plugins:
+  - httpDetailsExtensions:
+      {}
 sources:
   - name: Books
     handler:
       openapi:
-        source: http://localhost:3002/openapi.json
+        source: http://localhost:3002/openapi/spec.yaml
   - name: Authors
     handler:
       jsonSchema:
@@ -34,7 +37,7 @@ sources:
 transforms:
   - filterSchema:
       filters:
-        - Query.{stores, authors}
+        - Query.{stores, authors, books}
         - Mutation.!*
 
 additionalTypeDefs: |
@@ -53,11 +56,10 @@ additionalTypeDefs: |
     book: Book @resolveTo(
       sourceName: "Books",
       sourceTypeName: "Query",
-      sourceFieldName: "AppController_book",
+      sourceFieldName: "books",
       requiredSelectionSet: "{ bookId }",
-      sourceArgs: {
-        id: "{root.bookId}"
-      }
+      keysArg: "ids"
+      keyField: "bookId"
     )
   }
   extend type Book {

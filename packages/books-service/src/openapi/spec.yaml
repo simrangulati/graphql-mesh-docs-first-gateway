@@ -1,0 +1,86 @@
+info:
+  title: Books service example
+  description: Everything about books
+  version: '1.0'
+servers:
+  - url: http://localhost:3002
+components:
+  schemas:
+    Category:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+      required:
+        - id
+        - name
+      additionalProperties: false
+    Book:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        authorId:
+          type: string
+        categoryId:
+          type: string
+      required:
+        - id
+        - title
+        - authorId
+        - categoryId
+      additionalProperties: false
+openapi: 3.0.1
+paths:
+  /categories:
+    get:
+      operationId: categories
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Category'
+  /books/{id}:
+    get:
+      operationId: book
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Book'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+  /books:
+    get:
+      operationId: books
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Book'
+      parameters:
+        - name: ids
+          in: query
+          required: true
+          schema:
+            type: array
+            items:
+              type: string

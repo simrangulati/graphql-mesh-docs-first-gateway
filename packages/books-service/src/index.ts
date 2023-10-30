@@ -1,115 +1,11 @@
-import { createRouter, Response } from 'fets';
-import { createServer } from 'node:http';
+import express from "express";
+import { components } from "./types/api";
+import path from 'path';
 
-const router = createRouter({
-    openAPI: {
-        info: {
-            title: 'Books service example',
-            description: 'Everything about books',
-            version: '1.0',
-        },
-        servers: [
-            {
-                url: 'http://localhost:3002',
-            }
-        ],
-        components: {
-            schemas: {
-                Category: {
-                    type: 'object',
-                    properties: {
-                        id: { type: 'string' },
-                        name: { type: 'string' },
-                    },
-                    required: ['id', 'name'],
-                    additionalProperties: false,
-                },
-                Book: {
-                    type: 'object',
-                    properties: {
-                        id: { type: 'string' },
-                        title: { type: 'string' },
-                        authorId: { type: 'string' },
-                        categoryId: { type: 'string' },
-                    },
-                    required: ['id', 'title', 'authorId', 'categoryId'],
-                    additionalProperties: false,
-                },
-            }
-        } as const
-    },
-})
-    .route({
-        method: 'GET',
-        path: '/books',
-        operationId: 'AppController_books',
-        schemas: {
-            responses: {
-                200: {
-                    type: 'array',
-                    items: {
-                        $ref: '#/components/schemas/Book',
-                    },
-                },
-            }
-        } as const,
-        handler: () => Response.json(books)
-    })
-    .route({
-        method: 'GET',
-        path: '/categories',
-        operationId: 'AppController_categories',
-        schemas: {
-            responses: {
-                200: {
-                    type: 'array',
-                    items: {
-                        $ref: '#/components/schemas/Category',
-                    },
-                },
-            }
-        } as const,
-        handler: () => Response.json(categories)
-    })
-    .route({
-        method: 'GET',
-        path: '/books/:id',
-        operationId: 'AppController_book',
-        schemas: {
-            request: {
-                params: {
-                    type: 'object',
-                    properties: {
-                        id: { type: 'string' },
-                    },
-                    required: ['id'],
-                    additionalProperties: false,
-                },
-            },
-            responses: {
-                200: {
-                    $ref: '#/components/schemas/Book',
-                },
-            }
-        } as const,
-        handler(req) {
-            const book = books.find(book => book.id === req.params.id);
-            if (!book) {
-                return Response.json({
-                    message: `Book with id ${req.params.id} not found`,
-                }, {
-                    status: 404,
-                })
-            }
-            return Response.json(book);
-        }
-    });
+type Book = components["schemas"]["Book"];
+type Category = components["schemas"]["Category"];
 
-createServer(router).listen(3002, () => {
-    console.log('Books service is listening on http://localhost:3002');
-});
-
-const categories = [
+const categories: Category[] = [
     {
         id: '0',
         name: 'Fiction',
@@ -120,7 +16,7 @@ const categories = [
     },
 ];
 
-const books = [
+const books: Book[] = [
     {
         id: '0',
         title: 'Illusion Perdues',
@@ -134,3 +30,37 @@ const books = [
         categoryId: '0',
     },
 ];
+
+const app = express();
+app.use(express.json());
+app.use('/openapi', express.static(path.join(__dirname, 'openapi')))
+
+app.get("/categories", (req, res) => {
+  res.json(categories);
+});
+
+app.get("/books/:id", (req, res) => {
+    const book = books.find(a => a.id === req.params.id);
+  if(book) {
+    res.json(book);
+  } else {
+    res.status(404).json({"message": "not found"});
+  }
+})
+
+app.get("/books", (req, res) => {
+    const {ids} = req.query;
+    console.log("ids, fetched ", ids);
+  
+    const filtered = books.filter((book) => (ids.includes(book.id)));
+    if(filtered) {
+        res.json(filtered);
+    } else {
+        res.status(404).json({"message": "not found"});
+    }
+})
+
+const PORT = 3002;
+app.listen(PORT, () => {
+    console.log(`Books service is running on port ${PORT}`);
+});
