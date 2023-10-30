@@ -28,15 +28,18 @@ app.get('/author/:id', (req, res) => {
   }
 })
 
-app.post('/authors', (req, res) => {
-  const {ids} = req.body;
+app.get('/authors', (req, res) => {
+  const {ids} = req.query;
   console.log("ids, fetched ", ids);
+1
+  
   const filtered = authors.filter((author) => (ids.includes(author.id)));
   if(filtered) {
     res.json(filtered);
   } else {
     res.status(404).json({"message": "not found"});
   }
+  
 })
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)

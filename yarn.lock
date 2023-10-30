@@ -930,6 +930,15 @@
     "@graphql-tools/wrap" "^10.0.0"
     minimatch "^9.0.0"
 
+"@graphql-mesh/transform-prefix@^0.96.0":
+  version "0.96.0"
+  resolved "https://registry.yarnpkg.com/@graphql-mesh/transform-prefix/-/transform-prefix-0.96.0.tgz#4ffe795ec01b227ce914120fdc9fabdb9ccc0694"
+  integrity sha512-XQA5V1IE2NH/fZQUbavZ1uumGVcJh49z5obNUtrJEksawz9kZ9TE+dOFZDjJIUOHVRZQ3PvlptVsExXX7pq0lg==
+  dependencies:
+    "@graphql-tools/delegate" "^10.0.0"
+    "@graphql-tools/wrap" "^10.0.0"
+    graphql-scalars "^1.22.4"
+
 "@graphql-mesh/transform-rename@^0.95.0":
   version "0.95.2"
   resolved "https://registry.yarnpkg.com/@graphql-mesh/transform-rename/-/transform-rename-0.95.2.tgz#6311202c751db51499cb0ad5736642930032e917"
