@@ -10,12 +10,18 @@ sources:
         operationHeaders:
           content-type: application/json
         operations:
-         - type: Mutation
+         - type: Query
            field: authors
            path: /authors
-           method: POST
-           requestSample: ./request.json
+           method: GET
            responseSample: ./users.json
+           argTypeMap:
+              ids:
+                type: array
+                items:
+                  type: string
+           queryParamArgMap:
+              ids: ids
          - type: Query
            field: author
            path: /author/{args.id}
@@ -28,7 +34,8 @@ sources:
 transforms:
   - filterSchema:
       filters:
-        - Query.stores
+        - Query.{stores, authors}
+        - Mutation.!*
 
 additionalTypeDefs: |
   extend type Store {
@@ -56,10 +63,10 @@ additionalTypeDefs: |
   extend type Book {
     author: query_author @resolveTo(
       sourceName: "Authors"                                  
-      sourceTypeName: "Mutation",       
+      sourceTypeName: "Query",       
       sourceFieldName: "authors",
       requiredSelectionSet: "{ authorId }",
-      keysArg: "input.ids"
+      keysArg: "ids"
       keyField: "authorId"
     )
   }

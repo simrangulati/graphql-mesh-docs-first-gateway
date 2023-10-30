@@ -19,7 +19,6 @@ query {
           id
           editor
         }
-        authorId
         title
       }
     }
