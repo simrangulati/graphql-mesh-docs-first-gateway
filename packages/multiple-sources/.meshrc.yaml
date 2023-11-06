@@ -24,7 +24,7 @@ sources:
                 items:
                   type: string
            queryParamArgMap:
-              ids: ids
+              ids[]: ids
          - type: Query
            field: author
            path: /author/{args.id}
@@ -58,7 +58,7 @@ additionalTypeDefs: |
       sourceTypeName: "Query",
       sourceFieldName: "books",
       requiredSelectionSet: "{ bookId }",
-      keysArg: "ids"
+      keysArg: "ids_LEFT_SQUARE_BRACE__RIGHT_SQUARE_BRACE_"
       keyField: "bookId"
     )
   }

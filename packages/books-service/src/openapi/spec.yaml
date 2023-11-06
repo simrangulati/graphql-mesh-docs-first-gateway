@@ -77,7 +77,7 @@ paths:
                 items:
                   $ref: '#/components/schemas/Book'
       parameters:
-        - name: ids
+        - name: ids[]
           in: query
           required: true
           schema:

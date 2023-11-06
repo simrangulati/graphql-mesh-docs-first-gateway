@@ -29,7 +29,8 @@ app.get('/author/:id', (req, res) => {
 })
 
 app.get('/authors', (req, res) => {
-  const {ids} = req.query;
+  const ids = req.query["ids"];
+  console.log(req.query);
   console.log("ids, fetched ", ids);
 1
   
